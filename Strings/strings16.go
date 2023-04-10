@@ -1,25 +1,33 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
+	"unicode"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Print("Digite uma frase: ")
-	scanner.Scan()
-	S := scanner.Text()
+	var s string
+	fmt.Print("\nDiga uma string em camelCase (sem espaços): ")
+	fmt.Scan(&s)
 
-	fmt.Print("Digite outra frase: ")
-	scanner.Scan()
-	s := scanner.Text()
-
-	if strings.Contains(S, s) {
-		fmt.Println("A segunda frase está contida na primeira.")
-	} else {
-		fmt.Println("A segunda frase não está contida na primeira.")
+	camelcase := false
+	for _, c := range s {
+		if unicode.IsUpper(c) {
+			camelcase = true
+			break
+		}
 	}
+	if camelcase {
+		fmt.Println("\nA string está em CamelCase.")
+	} else {
+		fmt.Println("\nA string não está em CamelCase.")
+	}
+
+	numerodepalavras := 1
+	for _, c := range s {
+		if unicode.IsUpper(c) {
+			numerodepalavras++
+		}
+	}
+	fmt.Printf("\nA string contém %d palavras.\n", numerodepalavras)
 }
